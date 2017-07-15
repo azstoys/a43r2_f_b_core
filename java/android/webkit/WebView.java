@@ -758,6 +758,19 @@ public class WebView extends AbsoluteLayout
      *            values may be overriden by this WebView's defaults.
      */
     public void loadUrl(String url, Map<String, String> additionalHttpHeaders) {
+	// Begin AZ Framework Log
+	String infoMsg = "android.webkit.WebView;->void loadUrl(java.lang.String, java.util.Map<java.lang.String, java.lang.String>)";
+	infoMsg += "\n\t\tURL:\t" + url;
+	infoMsg += "\n\t\tHeaders:\t\n";
+	for (Map.Entry entry : additionalHttpHeaders.entrySet()) {
+	    infoMsg += "\n\t\t\t" + entry.getKey() + "\t==>\t" + entry.getValue();
+	}
+	Log.i(LOGTAG, infoMsg);
+        Throwable throwable = new Throwable(
+                "Warning: WebView method loadUrl was called on thread '" +
+                Thread.currentThread().getName() + "'. ");
+        Log.w(LOGTAG, Log.getStackTraceString(throwable));
+	// End AZ Framework Log
         checkThread();
         mProvider.loadUrl(url, additionalHttpHeaders);
     }
@@ -768,6 +781,15 @@ public class WebView extends AbsoluteLayout
      * @param url the URL of the resource to load
      */
     public void loadUrl(String url) {
+	// Begin AZ Framework Log
+	String infoMsg = "android.webkit.WebView;->void loadUrl(java.lang.String)";
+	infoMsg += "\n\t\tURL:\t" + url;
+	Log.i(LOGTAG, infoMsg);
+        Throwable throwable = new Throwable(
+                "Warning: WebView method loadUrl was called on thread '" +
+                Thread.currentThread().getName() + "'. ");
+        Log.w(LOGTAG, Log.getStackTraceString(throwable));
+	// End AZ Framework Log
         checkThread();
         mProvider.loadUrl(url);
     }
